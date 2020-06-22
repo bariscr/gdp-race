@@ -6,7 +6,10 @@ library(tidyverse)
 gdp_data <- gdp_per_capita_world %>% 
   mutate(gdp_pc = 
            case_when(is.na(gdp_pc) == TRUE ~ 0,
-                     TRUE ~ gdp_pc))
+                     TRUE ~ gdp_pc)) %>% 
+  filter(country_name != "North America") %>%
+  mutate(country_name = case_when(country_name == "Bahamas, The" ~ "Bahamas",
+                                TRUE ~ country_name))
 # give the ranks
 gdp_data2 <- gdp_data %>%
   group_by(year) %>%
@@ -16,7 +19,11 @@ gdp_data2 <- gdp_data %>%
 top_countries <- gdp_data2 %>% 
   filter(rank <= 10) %>%
   select(country_name, year, rank) %>% distinct()
-
+# check country names
+top_countries %>% 
+  select(country_name) %>% 
+  unique() 
+ 
 # plot
 library(gganimate)
 library(ggdark)
