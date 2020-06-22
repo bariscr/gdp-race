@@ -36,7 +36,8 @@ p <- ggplot(top_countries, aes(rank, group = country_name,
   guides(color = FALSE, fill = FALSE) +
   dark_theme_minimal() +
   labs(title='{closest_state}', caption="Data: World Bank", x = "", y = "") +
-  theme(plot.title = element_text(hjust = 0, size = 40),
+  theme(panel.grid = element_blank (), # delete the grids
+        plot.title = element_text(hjust = 0, size = 40),
         axis.ticks.y = element_blank(),  
         axis.text.y  = element_blank(),  
         plot.margin = margin(1,1,1,4, "cm")) +
